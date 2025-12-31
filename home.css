@@ -1,4 +1,4 @@
-:root {
+:root{
     --primary: #6366f1;
     --bg: #0b0b0f;
     --grid: #1f1f2e;
@@ -6,15 +6,20 @@
     --border: rgba(255, 255, 255, 0.1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+*{ 
+    margin: 0;
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif; 
+}
 
-body {
+body{
     background-color: var(--bg);
     color: white;
     min-height: 100vh;
 }
 
-.grid-background {
+.grid-background{
     position: fixed;
     inset: 0;
     background-image: 
@@ -25,15 +30,17 @@ body {
     z-index: -1;
 }
 
-.container {
+.container{
     max-width: 800px;
     margin: 60px auto;
     padding: 0 20px;
 }
 
-header { margin-bottom: 30px; }
+header{ 
+    margin-bottom: 30px; 
+}
 
-.task-form {
+.task-form{
     background: var(--card-bg);
     padding: 24px;
     border-radius: 16px;
@@ -44,7 +51,7 @@ header { margin-bottom: 30px; }
     margin-bottom: 40px;
 }
 
-input {
+input{
     background: rgba(0,0,0,0.4);
     border: 1px solid var(--border);
     padding: 14px;
@@ -54,7 +61,7 @@ input {
     font-size: 1rem;
 }
 
-.btn-add {
+.btn-add{
     background: var(--primary);
     color: white;
     border: none;
@@ -64,7 +71,7 @@ input {
     font-weight: 700;
 }
 
-.task-item {
+.task-item{
     background: var(--card-bg);
     margin-bottom: 12px;
     padding: 20px;
@@ -75,10 +82,17 @@ input {
     border: 1px solid var(--border);
 }
 
-.task-info h3 { margin-top: 4px; }
-.task-info p { color: #818cf8; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+.task-info h3{
+    margin-top: 4px; 
+}
+.task-info p{ 
+    color: #818cf8;
+    font-size: 0.8rem; 
+    font-weight: 700; 
+    text-transform: uppercase; 
+}
 
-.btn-start {
+.btn-start{
     background: #4ade80;
     color: #061f0e;
     border: none;
@@ -88,8 +102,7 @@ input {
     font-weight: 700;
 }
 
-/* Focus Mode Layout */
-#focus-overlay {
+#focus-overlay{
     position: fixed;
     inset: 0;
     background: #000;
@@ -100,11 +113,18 @@ input {
     justify-content: center;
 }
 
-#focus-overlay.active { display: flex; }
+#focus-overlay.active{ 
+    display: flex; 
+}
 
-#displayTaskName { color: #9ca3af; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+#displayTaskName{ 
+    color: #9ca3af; 
+    margin-bottom: 20px; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+}
 
-.timer-glow {
+.timer-glow{
     font-size: clamp(5rem, 15vw, 10rem);
     font-weight: 900;
     color: white;
@@ -113,7 +133,7 @@ input {
     font-family: monospace;
 }
 
-.btn-finish {
+.btn-finish{
     background: white;
     color: black;
     border: none;
@@ -125,4 +145,6 @@ input {
     transition: transform 0.2s;
 }
 
-.btn-finish:hover { transform: scale(1.05); }
+.btn-finish:hover{ 
+    transform: scale(1.05); 
+}
