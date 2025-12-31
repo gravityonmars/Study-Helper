@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnGrid - Focus Dashboard</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+    <div class="grid-background"></div>
+
+    <div class="container" id="home-view">
+        <h1 style="margin-bottom: 20px;">Tasks</h1>
+        <div class="task-form">
+            <input type="text" id="subInput" placeholder="Subject">
+            <input type="text" id="taskInput" placeholder="Task">
+            <button class="btn-add" id="addBtn">Add Task</button>
+        </div>
+        <div id="taskList"></div>
+    </div>
+
+    <div id="focus-overlay">
+        <h2 id="focusTitle" style="color: grey; margin-bottom: 10px;"></h2>
+        <div class="timer-glow" id="timer">00:00</div>
+        <button class="btn-finish" id="finishBtn">Finish Task</button>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+</html>

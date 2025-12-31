@@ -1,3 +1,3 @@
 document.getElementById('mainCta').addEventListener('click',()=>{
-    alert("Welcome To Study Helper")
-})
+    window.location.href="home.html";
+});
