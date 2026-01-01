@@ -8,25 +8,34 @@ const timerDisplay = document.getElementById('timer');
 const focusTitle = document.getElementById('focusTitle');
 const finishBtn = document.getElementById('finishBtn');
 
-let tasks = JSON.parse(localStorage.getItem('learnGridTasks')) || [];
+let tasks = JSON.parse(localStorage.getItem('learnGridData')) || [];
 let timerInt;
-let totalSecs = 0;
+let sessionSecs = 0;
+let activeIdx = null;
 
-function render() {
-    localStorage.setItem('learnGridTasks', JSON.stringify(tasks));
+function format(s){
+    const m = Math.floor(s / 60).toString().padStart(2, '0');
+    const sec = (s % 60).toString().padStart(2, '0');
+    return `${m}:${sec}`;
+}
+
+function render(){
+    localStorage.setItem('learnGridData', JSON.stringify(tasks));
     taskList.innerHTML = '';
-            
     tasks.forEach((t, i) => {
         const item = document.createElement('div');
         item.className = 'task-item';
         item.innerHTML = `
             <div>
-                <small style="color:var(--primary); font-weight: bold;">${t.sub.toUpperCase()}</small>
+                <small style="color:var(--primary); font-weight:700;">${t.sub.toUpperCase()}</small>
                 <h3>${t.name}</h3>
             </div>
             <div class="action-group">
-                <button class="btn-start" data-action="start" data-index="${i}">Start</button>
-                <button class="btn-remove" data-action="delete" data-index="${i}">×</button>
+                ${t.totalTime > 0 ? `<div class="time-display">${format(t.totalTime)}</div>` : ''}
+                <button class="btn-start" data-index="${i}" data-action="start">
+                    ${t.totalTime > 0 ? 'Resume' : 'Start'}
+                </button>
+                <button class="btn-remove" data-index="${i}" data-action="delete">×</button>
             </div>
         `;
         taskList.appendChild(item);
@@ -35,41 +44,42 @@ function render() {
 
 addBtn.addEventListener('click', () => {
     if(subInput.value.trim() && taskInput.value.trim()) {
-        tasks.push({ sub: subInput.value, name: taskInput.value });
+        tasks.push({ sub: subInput.value, name: taskInput.value, totalTime: 0 });
         subInput.value = ''; taskInput.value = '';
         render();
     }
 });
 
 taskList.addEventListener('click', (e) => {
-    const index = e.target.getAttribute('data-index');
-    const action = e.target.getAttribute('data-action');
+    const btn = e.target.closest('button');
+    if(!btn) return;
+    const idx = btn.dataset.index;
+    const act = btn.dataset.action;
 
-    if(action === 'delete') {
-        tasks.splice(index, 1);
+    if(act === 'delete') {
+        tasks.splice(idx, 1);
         render();
-    } 
-    else if(action === 'start') {
-        const task = tasks[index];
+    } else if(act === 'start') {
+        activeIdx = idx;
         homeView.style.display = 'none';
         focusOverlay.classList.add('active');
-        focusTitle.innerText = task.name;
-                
-        totalSecs = 0;
+        focusTitle.innerText = tasks[idx].name;
+        sessionSecs = 0;
         timerInt = setInterval(() => {
-            totalSecs++;
-            const m = Math.floor(totalSecs / 60).toString().padStart(2, '0');
-            const s = (totalSecs % 60).toString().padStart(2, '0');
-            timerDisplay.innerText = `${m}:${s}`;
+            sessionSecs++;
+            timerDisplay.innerText = format(sessionSecs);
         }, 1000);
     }
 });
 
 finishBtn.addEventListener('click', () => {
     clearInterval(timerInt);
+    if(activeIdx !== null) tasks[activeIdx].totalTime += sessionSecs;
     focusOverlay.classList.remove('active');
     homeView.style.display = 'block';
     timerDisplay.innerText = '00:00';
+    activeIdx = null;
+    render();
 });
 
 render();
